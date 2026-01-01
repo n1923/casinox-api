@@ -1,6 +1,10 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  // 'req' parametresini kullanmak için:
+  const userAgent = req.headers['user-agent'] || 'Unknown';
+  console.log(`API info requested by: ${userAgent.substring(0, 30)}...`);
+  
   res.setHeader('Content-Type', 'application/json');
   
   const apiInfo = {
