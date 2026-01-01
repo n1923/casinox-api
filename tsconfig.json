@@ -1,62 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2020",
     "module": "commonjs",
-    "lib": ["ES2022"],
-    "outDir": "./dist",
-    "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],
-      "@lib/*": ["./lib/*"],
-      "@middlewares/*": ["./middlewares/*"],
-      "@utils/*": ["./utils/*"],
-      "@types/*": ["./types/*"],
-      "@config/*": ["./config/*"],
-      "@api/*": ["./api/*"]
-    },
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "outDir": "./dist"
   },
-  "include": [
-    "**/*.ts",
-    "**/*.json"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/*.e2e.ts",
-    "coverage"
-  ],
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true,
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
