@@ -1,6 +1,9 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // 'req' parametresini kullanmak için bir örnek:
+  console.log(`Health check from: ${req.headers['user-agent']?.substring(0, 50)}...`);
+  
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'no-store, max-age=0');
 
