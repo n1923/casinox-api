@@ -1,11 +1,21 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
   "builds": [
     {
       "src": "api/**/*.ts",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["lib/**", "middlewares/**", "utils/**", "types/**"]
+        "includeFiles": [
+          "lib/**",
+          "middlewares/**",
+          "utils/**",
+          "types/**",
+          "package.json",
+          "tsconfig.json"
+        ]
       }
     }
   ],
@@ -13,12 +23,36 @@
     {
       "src": "/api/(.*)",
       "dest": "/api/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"],
       "headers": {
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+        "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT,HEAD",
+        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Origin, X-Requested-With",
+        "Access-Control-Max-Age": "86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block"
       }
+    },
+    {
+      "src": "/",
+      "dest": "/api/index.ts",
+      "methods": ["GET", "HEAD"],
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "src": "/health",
+      "dest": "/api/health.ts",
+      "methods": ["GET", "HEAD"]
+    },
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/api/404.ts"
     }
   ],
   "env": {
@@ -26,6 +60,25 @@
     "MONGODB_DB": "@mongodb_db",
     "JWT_SECRET": "@jwt_secret",
     "JWT_EXPIRES_IN": "7d",
-    "ALLOWED_ORIGINS": "*"
+    "JWT_ALGORITHM": "HS256",
+    "NODE_ENV": "production",
+    "ALLOWED_ORIGINS": "*",
+    "RATE_LIMIT_WINDOW_MS": "900000",
+    "RATE_LIMIT_MAX_REQUESTS": "100",
+    "LOG_LEVEL": "info",
+    "TOKEN_REFRESH_THRESHOLD": "86400"
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 10,
+      "runtime": "nodejs18.x"
+    }
+  },
+  "regions": ["all"],
+  "public": false,
+  "github": {
+    "enabled": false,
+    "silent": true
   }
 }
