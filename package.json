@@ -1,102 +1,24 @@
 {
-  "name": "backend-ts",
+  "name": "casinox-api",
   "version": "1.0.0",
-  "description": "TypeScript Backend for Vercel Serverless with MongoDB Authentication",
-  "main": "dist/api/index.js",
+  "description": "CasinoX Authentication API",
+  "main": "api/index.js",
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc",
-    "start": "node dist/api/index.js",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "clean": "rm -rf dist && rm -rf node_modules",
-    "clean:all": "rm -rf dist node_modules package-lock.json yarn.lock",
-    "test:connection": "ts-node scripts/testConnection.ts",
-    "create:indexes": "ts-node scripts/createIndexes.ts",
-    "check:jwt": "ts-node scripts/checkJWTConfig.ts",
-    "check:env": "ts-node scripts/checkEnv.ts",
-    "generate:secret": "ts-node scripts/generateSecret.ts",
-    "generate:secret:save": "ts-node scripts/generateSecret.ts --save",
-    "deploy:dev": "vercel",
-    "deploy:prod": "vercel --prod",
-    "deploy:preview": "vercel --preview",
-    "logs": "vercel logs",
-    "logs:prod": "vercel logs --prod",
-    "setup": "npm install && cp .env.example .env.local && echo 'Please edit .env.local with your MongoDB credentials'",
-    "setup:full": "npm ci && cp .env.example .env.local && npm run build",
-    "health": "curl -X GET http://localhost:3000/api/health || echo 'Server not running'",
-    "health:prod": "curl -X GET https://your-project.vercel.app/api/health",
-    "diagnose": "npm run check:env && npm run check:jwt && npm run test:connection",
-    "verify": "npm run type-check && npm run lint && npm run format:check",
-    "reset": "npm run clean:all && npm install && npm run build",
-    "postinstall": "npm run build",
-    "prepare": "npm run build || echo 'Build skipped for development'"
+    "deploy": "vercel --prod",
+    "test": "echo 'No tests yet'"
   },
   "dependencies": {
+    "@vercel/node": "^3.0.0",
     "mongodb": "^6.3.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "zod": "^3.22.4",
-    "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5",
-    "winston": "^3.11.0",
-    "winston-daily-rotate-file": "^4.7.1"
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
-    "@types/mongodb": "^4.0.7",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.5",
-    "@types/cors": "^2.8.17",
-    "@vercel/node": "^3.0.0",
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.2",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "prettier": "^3.1.1",
-    "@types/express": "^4.17.21",
-    "@types/express-rate-limit": "^6.0.2",
-    "@types/winston": "^2.4.4"
+    "typescript": "^5.3.3"
   },
   "engines": {
-    "node": ">=18.x",
-    "npm": ">=9.x"
+    "node": ">=18.x"
   },
-  "keywords": [
-    "vercel",
-    "serverless",
-    "typescript",
-    "mongodb",
-    "authentication",
-    "jwt",
-    "api",
-    "rest",
-    "nodejs",
-    "backend"
-  ],
-  "author": "Your Name <your.email@example.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/vercel-auth-backend.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yourusername/vercel-auth-backend/issues"
-  },
-  "homepage": "https://github.com/yourusername/vercel-auth-backend#readme",
-  "funding": {
-    "type": "individual",
-    "url": "https://github.com/sponsors/yourusername"
-  },
-  "private": true,
-  "publishConfig": {
-    "access": "private"
-  }
+  "private": true
 }
