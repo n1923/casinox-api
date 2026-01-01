@@ -1,112 +1,19 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm ci",
-  "outputDirectory": "dist",
   "builds": [
     {
       "src": "api/**/*.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "lib/**",
-          "middlewares/**",
-          "utils/**",
-          "types/**",
-          "config/**",
-          "package.json",
-          "tsconfig.json"
-        ],
-        "maxLambdaSize": "50mb"
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"],
-      "headers": {
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT,HEAD",
-        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Origin, X-Requested-With, Cache-Control",
-        "Access-Control-Max-Age": "86400",
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-        "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
-      }
+      "dest": "/api/$1"
     },
     {
       "src": "/",
-      "dest": "/api/index.ts",
-      "methods": ["GET", "HEAD"],
-      "headers": {
-        "Cache-Control": "public, max-age=3600, s-maxage=3600"
-      }
-    },
-    {
-      "src": "/health",
-      "dest": "/api/health.ts",
-      "methods": ["GET", "HEAD"],
-      "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
-    },
-    {
-      "src": "/api/health",
-      "dest": "/api/health.ts",
-      "methods": ["GET", "HEAD"]
-    },
-    {
-      "src": "/(.*)",
-      "status": 404,
-      "dest": "/api/404.ts"
-    }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "MONGODB_DB": "@mongodb_db",
-    "JWT_SECRET": "@jwt_secret",
-    "JWT_EXPIRES_IN": "@jwt_expires_in",
-    "JWT_ALGORITHM": "@jwt_algorithm",
-    "NODE_ENV": "@node_env",
-    "ALLOWED_ORIGINS": "@allowed_origins",
-    "RATE_LIMIT_WINDOW_MS": "@rate_limit_window_ms",
-    "RATE_LIMIT_MAX_REQUESTS": "@rate_limit_max_requests",
-    "LOG_LEVEL": "@log_level",
-    "TOKEN_REFRESH_THRESHOLD": "@token_refresh_threshold",
-    "BCRYPT_SALT_ROUNDS": "@bcrypt_salt_rounds",
-    "API_VERSION": "@api_version",
-    "API_PREFIX": "@api_prefix"
-  },
-  "functions": {
-    "api/**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 10,
-      "runtime": "nodejs18.x",
-      "includeFiles": "lib/**"
-    },
-    "api/auth/*.ts": {
-      "memory": 1024,
-      "maxDuration": 15
-    }
-  },
-  "regions": ["fra1", "iad1", "sfo1"],
-  "public": false,
-  "github": {
-    "enabled": true,
-    "silent": true,
-    "autoJobCancelation": true
-  },
-  "crons": [
-    {
-      "path": "/api/health",
-      "schedule": "0 */6 * * *"
+      "dest": "/api/index.ts"
     }
   ]
 }
