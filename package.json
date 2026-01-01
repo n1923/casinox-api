@@ -4,14 +4,10 @@
   "description": "CasinoX Authentication API",
   "main": "api/index.js",
   "scripts": {
-    "dev": "vercel dev",
-    "deploy": "vercel --prod",
-    "test": "echo 'No tests yet'"
+    "dev": "vercel dev"
   },
   "dependencies": {
-    "@vercel/node": "^3.0.0",
-    "mongodb": "^6.3.0",
-    "jsonwebtoken": "^9.0.2"
+    "@vercel/node": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
