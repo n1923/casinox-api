@@ -4,23 +4,23 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Content-Type', 'application/json');
   
   const apiInfo = {
-    name: 'Vercel Auth API',
+    name: 'CasinoX API',
     version: '1.0.0',
-    description: 'Authentication API built with Node.js, TypeScript and MongoDB',
+    description: 'Authentication API for CasinoX',
     endpoints: {
       auth: {
         register: 'POST /api/auth/register',
         login: 'POST /api/auth/login'
       },
-      health: 'GET /api/health'
+      health: 'GET /api/health',
+      hello: 'GET /api/hello'
     },
-    documentation: 'Add your documentation URL here',
     status: 'operational'
   };
 
   res.status(200).json({
     success: true,
-    message: 'Welcome to Vercel Auth API',
+    message: 'Welcome to CasinoX API',
     data: apiInfo,
     timestamp: new Date().toISOString()
   });
