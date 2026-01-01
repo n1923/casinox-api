@@ -12,26 +12,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
   
   if (req.method !== 'POST') {
-    return res.status(405).json({ 
+    res.status(405).json({ 
       success: false,
       error: 'Method not allowed. Use POST.' 
     });
+    return; // ← BU SATIRI EKLEYİN
   }
   
   try {
     res.setHeader('Content-Type', 'application/json');
     
-    // Simple validation
     const { email, password } = req.body;
     
     if (!email || !password) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         error: 'Email and password are required'
       });
+      return; // ← BU SATIRI EKLEYİN
     }
     
-    // Mock response for now
     res.status(200).json({
       success: true,
       message: 'Login endpoint is ready',
@@ -39,7 +39,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('Login error:', error);
     res.status(500).json({
       success: false,
       error: 'Internal server error'
