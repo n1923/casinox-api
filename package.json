@@ -1,20 +1,17 @@
 {
-  "name": "casinox-api",
+  "name": "vercel-mongodb-api",
   "version": "1.0.0",
-  "description": "CasinoX Authentication API",
-  "main": "api/index.js",
   "scripts": {
     "dev": "vercel dev"
   },
   "dependencies": {
+    "mongodb": "^6.0.0",
     "@vercel/node": "^3.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
-    "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": ">=18.x"
-  },
-  "private": true
+    "@types/mongodb": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vercel": "^33.0.0"
+  }
 }
