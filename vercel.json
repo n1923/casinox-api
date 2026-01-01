@@ -21,5 +21,9 @@
       "src": "/api/(.*)",
       "dest": "/api/$1"
     }
-  ]
+  ],
+  "installCommand": "npm ci --prefer-offline",
+  "framework": null,
+  "outputDirectory": ".vercel/output",
+  "crons": []
 }
