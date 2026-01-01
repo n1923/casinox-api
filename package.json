@@ -9,18 +9,30 @@
     "start": "node dist/api/index.js",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"**/*.{ts,json}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "rm -rf dist && rm -rf node_modules",
+    "clean:all": "rm -rf dist node_modules package-lock.json yarn.lock",
     "test:connection": "ts-node scripts/testConnection.ts",
     "create:indexes": "ts-node scripts/createIndexes.ts",
     "check:jwt": "ts-node scripts/checkJWTConfig.ts",
     "check:env": "ts-node scripts/checkEnv.ts",
+    "generate:secret": "ts-node scripts/generateSecret.ts",
+    "generate:secret:save": "ts-node scripts/generateSecret.ts --save",
     "deploy:dev": "vercel",
     "deploy:prod": "vercel --prod",
+    "deploy:preview": "vercel --preview",
     "logs": "vercel logs",
-    "setup": "npm install && cp .env.example .env.local",
+    "logs:prod": "vercel logs --prod",
+    "setup": "npm install && cp .env.example .env.local && echo 'Please edit .env.local with your MongoDB credentials'",
+    "setup:full": "npm ci && cp .env.example .env.local && npm run build",
     "health": "curl -X GET http://localhost:3000/api/health || echo 'Server not running'",
-    "postinstall": "npm run build"
+    "health:prod": "curl -X GET https://your-project.vercel.app/api/health",
+    "diagnose": "npm run check:env && npm run check:jwt && npm run test:connection",
+    "verify": "npm run type-check && npm run lint && npm run format:check",
+    "reset": "npm run clean:all && npm install && npm run build",
+    "postinstall": "npm run build",
+    "prepare": "npm run build || echo 'Build skipped for development'"
   },
   "dependencies": {
     "mongodb": "^6.3.0",
@@ -30,7 +42,9 @@
     "dotenv": "^16.3.1",
     "zod": "^3.22.4",
     "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5"
+    "express-rate-limit": "^7.1.5",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
@@ -44,12 +58,16 @@
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.1.1",
     "@types/express": "^4.17.21",
-    "@types/express-rate-limit": "^6.0.2"
+    "@types/express-rate-limit": "^6.0.2",
+    "@types/winston": "^2.4.4"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": ">=18.x",
+    "npm": ">=9.x"
   },
   "keywords": [
     "vercel",
@@ -58,16 +76,27 @@
     "mongodb",
     "authentication",
     "jwt",
-    "api"
+    "api",
+    "rest",
+    "nodejs",
+    "backend"
   ],
-  "author": "Your Name",
+  "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/vercel-auth-backend"
+    "url": "https://github.com/yourusername/vercel-auth-backend.git"
   },
   "bugs": {
     "url": "https://github.com/yourusername/vercel-auth-backend/issues"
   },
-  "homepage": "https://github.com/yourusername/vercel-auth-backend#readme"
+  "homepage": "https://github.com/yourusername/vercel-auth-backend#readme",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/yourusername"
+  },
+  "private": true,
+  "publishConfig": {
+    "access": "private"
+  }
 }
