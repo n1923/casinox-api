@@ -1,13 +1,26 @@
 {
   "name": "backend-ts",
   "version": "1.0.0",
-  "description": "TypeScript Backend for Vercel Serverless",
-  "main": "api/index.js",
+  "description": "TypeScript Backend for Vercel Serverless with MongoDB Authentication",
+  "main": "dist/api/index.js",
   "scripts": {
     "dev": "vercel dev",
     "build": "tsc",
-    "start": "node api/index.js",
-    "type-check": "tsc --noEmit"
+    "start": "node dist/api/index.js",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,json}\"",
+    "clean": "rm -rf dist && rm -rf node_modules",
+    "test:connection": "ts-node scripts/testConnection.ts",
+    "create:indexes": "ts-node scripts/createIndexes.ts",
+    "check:jwt": "ts-node scripts/checkJWTConfig.ts",
+    "check:env": "ts-node scripts/checkEnv.ts",
+    "deploy:dev": "vercel",
+    "deploy:prod": "vercel --prod",
+    "logs": "vercel logs",
+    "setup": "npm install && cp .env.example .env.local",
+    "health": "curl -X GET http://localhost:3000/api/health || echo 'Server not running'",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "mongodb": "^6.3.0",
@@ -15,7 +28,9 @@
     "jsonwebtoken": "^9.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
@@ -25,9 +40,34 @@
     "@types/cors": "^2.8.17",
     "@vercel/node": "^3.0.0",
     "typescript": "^5.3.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "@types/express": "^4.17.21",
+    "@types/express-rate-limit": "^6.0.2"
   },
   "engines": {
     "node": ">=18.x"
-  }
+  },
+  "keywords": [
+    "vercel",
+    "serverless",
+    "typescript",
+    "mongodb",
+    "authentication",
+    "jwt",
+    "api"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/vercel-auth-backend"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/vercel-auth-backend/issues"
+  },
+  "homepage": "https://github.com/yourusername/vercel-auth-backend#readme"
 }
